@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#07070a;--dark:#0e0e15;--card:#13131e;--card2:#1a1a28;
+  --purple:#4b2edc;--neon:#00c2ff;--neon2:#7b2fff;
+  --text:#e8e6f0;--muted:#7a798f;--border:rgba(255,255,255,0.07);
+}
+body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;overflow-x:hidden}
+.display{font-family:'Syne',sans-serif}
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 48px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;background:rgba(7,7,10,0.88);backdrop-filter:blur(16px)}
+.logo{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;letter-spacing:.02em}
+.logo span{color:var(--neon)}
+nav ul{list-style:none;display:flex;gap:32px}
+nav a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
+nav a:hover{color:var(--text)}
+.nav-cta{background:transparent;border:1px solid var(--neon);color:var(--neon);padding:9px 20px;border-radius:6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .25s;font-family:'DM Sans',sans-serif}
+.nav-cta:hover{background:var(--neon);color:var(--black)}
+.hero{padding:110px 48px 90px;position:relative;overflow:hidden}
+.hero-noise{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(75,46,220,0.18) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(0,194,255,0.07) 0%,transparent 60%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--card);padding:6px 14px;border-radius:100px;font-size:12px;color:var(--muted);margin-bottom:32px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--neon);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,5vw,58px);line-height:1.08;letter-spacing:-.02em;max-width:780px;margin-bottom:24px}
+.hero h1 .hl{background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{color:var(--muted);max-width:520px;font-size:16px;line-height:1.75;margin-bottom:44px}
+.cta-row{display:flex;gap:16px;align-items:center}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--neon2));color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:14px 28px;border-radius:8px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
+.hero-line{position:absolute;right:0;top:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--neon),transparent);opacity:.15}
+.section{padding:90px 48px}
+.section-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';width:28px;height:1px;background:var(--neon);display:inline-block}
+.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(26px,3.5vw,40px);margin-bottom:16px;letter-spacing:-.01em}
+.section-sub{color:var(--muted);max-width:520px;font-size:15px;line-height:1.75;margin-bottom:56px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border)}
+.service-card{background:var(--card);padding:40px 36px;transition:background .25s;cursor:default;position:relative;overflow:hidden}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.service-card:hover{background:var(--card2)}
+.service-card:hover::after{transform:scaleX(1)}
+.svc-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:20px;background:rgba(75,46,220,0.18)}
+.service-card h3{font-family:'Syne',sans-serif;font-weight:600;font-size:17px;margin-bottom:12px}
+.service-card p{color:var(--muted);font-size:14px;line-height:1.7}
+.svc-badge{display:inline-block;margin-top:16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--neon);border:1px solid rgba(0,194,255,.2);padding:4px 10px;border-radius:4px}
+.exp-section{background:var(--dark)}
+.exp-cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.exp-steps{display:flex;flex-direction:column}
+.exp-step{display:flex;gap:20px;padding:28px 0;border-bottom:1px solid var(--border)}
+.exp-step:first-child{padding-top:0}
+.step-num{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;color:var(--neon);min-width:24px;padding-top:3px}
+.step-body h4{font-family:'Syne',sans-serif;font-size:15px;font-weight:600;margin-bottom:6px}
+.step-body p{color:var(--muted);font-size:14px;line-height:1.7}
+.exp-right{padding-top:8px}
+.exp-quote{border-left:2px solid var(--neon2);padding:24px 28px;background:var(--card);border-radius:0 10px 10px 0;margin-bottom:32px}
+.exp-quote p{font-style:italic;font-size:16px;line-height:1.7;color:var(--text)}
+.exp-quote cite{font-style:normal;font-size:12px;color:var(--muted);margin-top:10px;display:block}
+.exp-box{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:28px}
+.exp-box h4{font-size:11px;margin-bottom:18px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.feat-list li{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text)}
+.feat-list li::before{content:'';width:16px;height:1px;background:var(--neon);flex-shrink:0}
+
+/* ── BIRLIKTE ÜRETIM / KİŞİSEL DENEYİM BÖLÜMÜ ── */
+.collab-section{
+  background:var(--black);
+  padding:90px 48px;
+  position:relative;overflow:hidden;
+}
+.collab-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(75,46,220,0.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+.collab-inner{
+  border:1px solid rgba(0,194,255,0.12);
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+}
+.collab-header{
+  padding:56px 56px 40px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,rgba(75,46,220,0.1),rgba(0,194,255,0.05));
+}
+.collab-header .section-label{margin-bottom:14px}
+.collab-header h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(26px,3.5vw,42px);letter-spacing:-.02em;margin-bottom:16px}
+.collab-header h2 em{font-style:normal;color:var(--neon)}
+.collab-header p{color:var(--muted);font-size:16px;line-height:1.8;max-width:600px}
+.collab-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;
+}
+.collab-card{
+  padding:40px 36px;
+  border-right:1px solid var(--border);
+  background:var(--card);
+  position:relative;transition:background .25s;
+}
+.collab-card:last-child{border-right:none}
+.collab-card:hover{background:var(--card2)}
+.collab-card-num{
+  font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.15em;
+  color:var(--neon);margin-bottom:20px;
+}
+.collab-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:12px;line-height:1.3}
+.collab-card p{color:var(--muted);font-size:13px;line-height:1.75}
+.collab-card .accent{color:var(--text)}
+.collab-bottom{
+  padding:36px 56px;
+  background:rgba(0,194,255,0.03);
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:32px;
+}
+.collab-bottom-text{
+  font-family:'Syne',sans-serif;font-size:17px;font-weight:600;
+  max-width:500px;line-height:1.5;
+}
+.collab-bottom-text span{color:var(--neon)}
+.collab-cta{
+  flex-shrink:0;
+  background:transparent;border:1px solid var(--neon);color:var(--neon);
+  padding:12px 24px;border-radius:8px;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;cursor:pointer;font-family:'Syne',sans-serif;
+  transition:all .25s;white-space:nowrap;
+}
+.collab-cta:hover{background:var(--neon);color:var(--black)}
+
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform .25s,border-color .25s}
+.proj-card:hover{transform:translateY(-4px);border-color:rgba(0,194,255,.25)}
+.proj-thumb{height:160px;display:flex;align-items:center;justify-content:center}
+.proj-thumb-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:24px;font-weight:700;letter-spacing:-.02em}
+.t1{background:linear-gradient(135deg,#1a0a3c,#0d1a3a)}.t2{background:linear-gradient(135deg,#0d1f2d,#0a2a1a)}.t3{background:linear-gradient(135deg,#2a0a1a,#1a0a2a)}.t4{background:linear-gradient(135deg,#0a1a2a,#1a1a0a)}
+.proj-body{padding:22px 24px}
+.proj-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:8px}
+.proj-body h3{font-family:'Syne',sans-serif;font-size:16px;margin-bottom:8px}
+.proj-body p{color:var(--muted);font-size:13px;line-height:1.65}
+.about-section{background:var(--dark)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-visual{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px 40px;text-align:center;position:relative;overflow:hidden}
+.about-visual::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,255,.12),transparent 70%)}
+.avatar-circle{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--neon));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:#fff}
+.about-visual h3{font-family:'Syne',sans-serif;font-size:18px;margin-bottom:6px}
+.about-visual .role{color:var(--neon);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.stat-box{background:var(--card2);border-radius:8px;padding:14px;text-align:center}
+.stat-box .num{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--neon)}
+.stat-box .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.about-text h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(24px,3vw,36px);margin-bottom:20px;letter-spacing:-.01em}
+.about-text p{color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:16px}
+.values-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.val-chip{border:1px solid var(--border);padding:8px 16px;border-radius:100px;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.form-group input,.form-group textarea{background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.form-group input:focus,.form-group textarea:focus{border-color:rgba(0,194,255,.4)}
+.form-group textarea{resize:vertical;min-height:120px}
+.send-btn{background:linear-gradient(135deg,var(--purple),var(--neon));border:none;color:#fff;padding:14px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;cursor:pointer;margin-top:8px;transition:opacity .2s}
+.send-btn:hover{opacity:.85}
+.send-btn:disabled{opacity:.6;cursor:not-allowed}
+.contact-info-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+.contact-info-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)}
+.contact-info-row:last-child{border-bottom:none;padding-bottom:0}
+.contact-info-row:first-child{padding-top:0}
+.ci-icon{width:36px;height:36px;border-radius:8px;background:rgba(75,46,220,0.18);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ci-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.ci-value{font-size:14px;color:var(--text)}
+.ci-value a{color:var(--neon);text-decoration:none}
+.ci-value a:hover{text-decoration:underline}
+.wa-btn{display:inline-flex;align-items:center;gap:12px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);color:#25d366;padding:14px 24px;border-radius:10px;text-decoration:none;font-size:14px;transition:all .2s;cursor:pointer;width:100%;justify-content:center}
+.wa-btn:hover{background:rgba(37,211,102,.18)}
+.divider{width:100%;height:1px;background:var(--border);margin:28px 0}
+.success-box{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px;background:var(--card);border:1px solid rgba(0,194,255,.2);border-radius:16px}
+.success-box.visible{display:flex}
+.success-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--neon));display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;animation:popIn .4s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.success-box h3{font-family:'Syne',sans-serif;font-size:20px;margin-bottom:10px}
+.success-box p{color:var(--muted);font-size:14px;line-height:1.7;max-width:300px}
+.neon-text{color:var(--neon)}
+footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;justify-content:space-between;align-items:center}
+footer p{color:var(--muted);font-size:13px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{animation:fadeUp .6s ease both}
+.hero h1{animation:fadeUp .7s .1s ease both}
+.hero-sub{animation:fadeUp .7s .2s ease both}
+.cta-row{animation:fadeUp .7s .3s ease both}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo display">tahir<span>.akbs</span></div>
+  <ul>
+    <li><a href="#">Hizmetler</a></li>
+    <li><a href="#">Süreç</a></li>
+    <li><a href="#">Portföy</a></li>
+    <li><a href="#">Hakkımda</a></li>
+  </ul>
+  <button class="nav-cta">Projeni Başlat</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-line"></div>
+  <div class="hero-tag"><span class="dot"></span> Şu an proje kabul ediyorum</div>
+  <h1 class="display">Sadece Bir Web Sitesi Değil,<br><span class="hl">Birlikte İnşa Edilen</span><br>Dijital Deneyimler.</h1>
+  <p class="hero-sub">Seninle aynı masada oturarak düşünüyorum. Her piksel bir karar, her satır kod bir diyalog. Fikrin kafanda şekillenirken, ben onu dijitale taşıyorum.</p>
+  <div class="cta-row">
+    <button class="btn-primary">Projeni Başlat →</button>
+    <button class="btn-ghost">Portföyü Gör</button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">Hizmetler</div>
+  <h2 class="section-title display">Her ihtiyacına özel,<br>kişiye özel çözümler</h2>
+  <p class="section-sub">Standart paketler yok. Senin projen, senin ihtiyaçların. Birlikte şekillendiriyoruz.</p>
+  <div class="services-grid">
+    <div class="service-card"><div class="svc-icon">🌐</div><h3>Web Sitesi Geliştirme</h3><p>Sadece site yazmıyorum — senin sesini, markanı ve hedeflerini dijitale taşıyorum. Her detayda seninle.</p><div class="svc-badge">Kişiye özel</div></div>
+    <div class="service-card"><div class="svc-icon">⚡</div><h3>Uygulama & Teknik Kurulum</h3><p>Karmaşık altyapıları anlaşılır bir sürece dönüştürüyorum. Sen strateji düşün, tekniğe ben bakayım.</p><div class="svc-badge">Uçtan uca</div></div>
+    <div class="service-card"><div class="svc-icon">🎨</div><h3>Grafik Tasarım & Photoshop</h3><p>Görsel kimliğini birlikte inşa ediyoruz. Renk, tipografi, his — hepsini seninle konuşarak seçiyoruz.</p><div class="svc-badge">Birlikte karar</div></div>
+    <div class="service-card"><div class="svc-icon">🤝</div><h3>Tam Süreç Ortaklığı</h3><p>Fikirden lansmanına kadar her adımda yanındayım. Sanki kendi ekibinle çalışıyormuşsun gibi bir deneyim.</p><div class="svc-badge">Derin iş birliği</div></div>
+  </div>
+</section>
+
+<section class="section exp-section">
+  <div class="section-label">Çalışma Süreci</div>
+  <h2 class="section-title display">Sen hayal et,<br>ben gerçeğe dönüştüreyim</h2>
+  <div class="exp-cols">
+    <div class="exp-steps">
+      <div class="exp-step"><div class="step-num">01</div><div class="step-body"><h4>Fikrini dinliyorum, gerçekten</h4><p>İlk toplantı satış değil, keşif. Ne istediğini, ne hissettiğini, neyi hayal ettiğini konuşuyoruz.</p></div></div>
+      <div class="exp-step"><div class="step-num">02</div><div class="step-body"><h4>Her kararı birlikte alıyoruz</h4><p>Renk mi seçiyoruz, yazı tipi mi? Hep birlikte. Küçük detaylar bile senin onayından geçiyor.</p></div></div>
+      <div class="exp-step"><div class="step-num">03</div><div class="step-body"><h4>Teknik detaylara boğmuyorum</h4><p>Neyin neden yapıldığını anlıyorsun, ama nasıl yapıldığını bilmek zorunda değilsin. Bu kısım bende.</p></div></div>
+      <div class="exp-step"><div class="step-num">04</div><div class="step-body"><h4>Teslim değil, birlikte bitiriyoruz</h4><p>Proje bitmez bitmez kaybolmuyorum. Lansman sonrası da varım.</p></div></div>
+    </div>
+    <div class="exp-right">
+      <div class="exp-quote"><p>"Seninle çalışmak müşteri olmak gibi hissettirmiyor — sanki ortak bir fikri gerçeğe taşıyoruz."</p><cite>— Önceki proje ortağı</cite></div>
+      <div class="exp-box"><h4>Bu deneyimde ne hissediyorsun?</h4><ul class="feat-list"><li>Aklındaki fikir tam olarak anlaşıldı</li><li>Süreç boyunca aktif geri bildirim aldın</li><li>En küçük detayları birlikte şekillendirdin</li><li>Teknik karmaşadan uzak kaldın</li><li>Bitince sahip çıktığın bir ürün ortaya çıktı</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KİŞİSEL ÇALIŞMA DENEYİMİ (YENİ BÖLÜM) ── -->
+<section class="collab-section">
+  <div class="collab-inner">
+    <div class="collab-header">
+      <div class="section-label">Kişisel Çalışma Deneyimi</div>
+      <h2>Sadece bir müşteri değil,<br><em>sürecin bir parçasısın</em></h2>
+      <p>Bazı projeler farklı bir yaklaşım gerektirir. Kafandaki her düşüncenin eksiksiz hayata geçmesini istiyorsan — en ufak ayrıntıya kadar birlikte karar vermek, hiç çaba harcamadan sürece dahil olmak istiyorsan — bu tam olarak o alan.</p>
+    </div>
+    <div class="collab-cards">
+      <div class="collab-card">
+        <div class="collab-card-num">— 01</div>
+        <h3>En ufak ayrıntıya kadar söz sahibisin</h3>
+        <p>Renk tonu, boşluk, yazı stili, buton şekli... <span class="accent">hiçbir şey senden habersiz karar verilmez.</span> Her adımda görüşün sorulur, fikirlerin uygulanır.</p>
+      </div>
+      <div class="collab-card">
+        <div class="collab-card-num">— 02</div>
+        <h3>Kafandakini aktarmak için çaba harcamazsın</h3>
+        <p>Ne söylersen söyle — tam cümle kurmak zorunda değilsin. <span class="accent">Yarım kalan fikirleri ben tamamlarım,</span> belirsiz düşünceleri somuta dönüştürürüm.</p>
+      </div>
+      <div class="collab-card">
+        <div class="collab-card-num">— 03</div>
+        <h3>Süreç boyunca aktif ve yakın iletişim</h3>
+        <p>Günlük güncelleme, anlık geri bildirim, her an ulaşılabilirlik. <span class="accent">Sanki kendi ekibinle çalışıyormuşsun gibi</span> — ama tek kişiyle.</p>
+      </div>
+    </div>
+    <div class="collab-bottom">
+      <div class="collab-bottom-text">Aklındaki her fikri, <span>tam olarak hayal ettiğin gibi</span> gerçeğe taşıyalım.</div>
+      <button class="collab-cta" onclick="document.getElementById('iletisim').scrollIntoView({behavior:'smooth'})">Konuşmaya Başla →</button>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">Portföy</div>
+  <h2 class="section-title display">Birlikte yapılan işler</h2>
+  <p class="section-sub">Her proje bir hikâye. Her ayrıntı bilinçli bir karar.</p>
+  <div class="portfolio-grid">
+    <div class="proj-card"><div class="proj-thumb t1"><div class="proj-thumb-inner" style="color:rgba(0,194,255,.6)">FLUX</div></div><div class="proj-body"><div class="proj-tag">SaaS · Web App</div><h3>Flux Dashboard</h3><p>Karanlık, veri yoğun bir analitik paneli. Kullanıcıyla beraber hiyerarşi ve renk kararları alındı.</p></div></div>
+    <div class="proj-card"><div class="proj-thumb t2"><div class="proj-thumb-inner" style="color:rgba(100,240,140,.5)">ORDO</div></div><div class="proj-body"><div class="proj-tag">E-ticaret · Tasarım</div><h3>Ordo Store</h3><p>Minimal butik e-ticaret sitesi. Ürün fotoğrafları öne çıksın diye her element birlikte kararlaştırıldı.</p></div></div>
+    <div class="proj-card"><div class="proj-thumb t3"><div class="proj-thumb-inner" style="color:rgba(180,100,255,.6)">NOVA</div></div><div class="proj-body"><div class="proj-tag">Marka · Kimlik</div><h3>Nova Identity</h3><p>Sıfırdan oluşturulan görsel kimlik. Logo, renk paleti ve tipografi — her biri müşteriyle oturularak seçildi.</p></div></div>
+    <div class="proj-card"><div class="proj-thumb t4"><div class="proj-thumb-inner" style="color:rgba(255,200,60,.5)">DELT</div></div><div class="proj-body"><div class="proj-tag">Mobil · Uygulama</div><h3>Delta App</h3><p>Finans takip uygulaması UI tasarımı. Karmaşık veriyi sade, anlaşılır arayüze dönüştürme süreci.</p></div></div>
+  </div>
+</section>
+
+<section class="section about-section">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="avatar-circle">T</div>
+      <h3>Tahir Akbaş</h3>
+      <div class="role">Freelance Developer & Designer</div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7">Teknolojiyi insanlar için anlamlı kılmayı seviyorum. Her projede gerçek bir fikir ortağı olarak çalışıyorum.</p>
+      <div class="stat-row">
+        <div class="stat-box"><div class="num">47+</div><div class="lbl">Tamamlanan Proje</div></div>
+        <div class="stat-box"><div class="num">6 yıl</div><div class="lbl">Deneyim</div></div>
+        <div class="stat-box"><div class="num">12</div><div class="lbl">Ülke</div></div>
+        <div class="stat-box"><div class="num">%94</div><div class="lbl">Tekrar Eden Müşteri</div></div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Hakkımda</div>
+      <h2 class="display">Sadece iş yapan biri değil, birlikte üreten biri.</h2>
+      <p>Yıllardır farklı sektörlerden insanlarla çalıştım. Her seferinde fark ettim ki en iyi çıktılar, ben sadece "freelancer" değil, gerçek bir fikir ortağı olduğumda ortaya çıkıyor.</p>
+      <p>Teknik bilgi önemli elbette — ama asıl fark şurada: Seninle konuştuğumda ne söylediğini değil, ne demek istediğini anlıyorum. Ve onu ekrana taşıyorum.</p>
+      <div class="values-row">
+        <div class="val-chip">Şeffaflık</div><div class="val-chip">Aktif iletişim</div><div class="val-chip">Detaylara özen</div><div class="val-chip">Süreçte ortaklık</div><div class="val-chip">Uzun vadeli ilişki</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="iletisim">
+  <div class="section-label">İletişim</div>
+  <h2 class="section-title display">Fikrini anlat,<br>birlikte şekillendirelim</h2>
+  <p class="section-sub">Henüz netleşmemiş olması sorun değil. Birlikte konuşarak netleştiririz.</p>
+  <div class="contact-grid">
+    <div id="form-wrapper">
+      <div class="contact-form" id="contact-form">
+        <div class="form-group"><label>Adın</label><input type="text" id="f-name" placeholder="Ayşe Kaya" required></div>
+        <div class="form-group"><label>E-posta</label><input type="email" id="f-email" placeholder="ayse@ornek.com" required></div>
+        <div class="form-group"><label>Projen hakkında anlat</label><textarea id="f-message" placeholder="Aklında ne var? Ne hissettirmek istiyorsun? Henüz netleşmemiş olması sorun değil..." required></textarea></div>
+        <button class="send-btn" id="send-btn" onclick="submitForm()">Fikri Gönder →</button>
+      </div>
+      <div class="success-box" id="success-box">
+        <div class="success-icon">✓</div>
+        <h3>Mesajın ulaştı!</h3>
+        <p>En kısa sürede <span class="neon-text">tahirakbs@gmail.com</span> adresinden geri dönüş yapacağım.</p>
+      </div>
+    </div>
+    <div class="contact-right">
+      <h3>Doğrudan ulaş</h3>
+      <p>Aşağıdaki kanallardan istediğin şekilde ulaşabilirsin. Her mesajı dikkate alıyorum.</p>
+      <div class="contact-info-box">
+        <div class="contact-info-row"><div class="ci-icon">✉</div><div><div class="ci-label">E-posta</div><div class="ci-value"><a href="mailto:tahirakbs@gmail.com">tahirakbs@gmail.com</a></div></div></div>
+        <div class="contact-info-row"><div class="ci-icon">☎</div><div><div class="ci-label">Telefon</div><div class="ci-value"><a href="tel:+905306574312">0530 657 43 12</a></div></div></div>
+      </div>
+      <a class="wa-btn" href="https://wa.me/905306574312" target="_blank"><span>✆</span><span>WhatsApp ile Yaz — 0530 657 43 12</span></a>
+      <div class="divider"></div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.8">Her gelen fikri ciddiye alıyorum. Küçük ya da büyük fark etmez — cevap yazıyorum.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo display">tahir<span style="color:var(--neon)">.akbs</span></div>
+  <p>© 2025 · Birlikte üretmek için buradayım.</p>
+  <p style="color:var(--muted);font-size:13px">Türkiye</p>
+</footer>
+
+<script>
+async function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const message = document.getElementById('f-message').value.trim();
+  if (!name || !email || !message) { alert('Lütfen tüm alanları doldur.'); return; }
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true; btn.textContent = 'Gönderiliyor...';
+  try {
+    const res = await fetch('https://formspree.io/f/xyklayqr', {
+      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({name, email, message})
+    });
+    if (res.ok) {
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('success-box').classList.add('visible');
+    } else { btn.disabled=false; btn.textContent='Fikri Gönder →'; alert('Bir hata oluştu.'); }
+  } catch(e) { btn.disabled=false; btn.textContent='Fikri Gönder →'; alert('Bağlantı hatası.'); }
+}
+</script>
+</body>
+</html>
