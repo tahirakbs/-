@@ -58,6 +58,32 @@ nav a:hover{color:var(--text)}
   box-shadow:0 0 20px rgba(124,58,237,0.4);
 }
 .nav-premium:hover{transform:translateY(-1px);box-shadow:0 0 32px rgba(255,0,144,0.5)}
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;padding:6px;z-index:200}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* Mobile nav menu */
+.nav-mobile-menu{
+  display:none;position:fixed;inset:0;z-index:150;
+  background:rgba(6,4,15,0.97);backdrop-filter:blur(24px);
+  flex-direction:column;align-items:center;justify-content:center;gap:0;
+}
+.nav-mobile-menu.open{display:flex}
+.nav-mobile-menu ul{list-style:none;display:flex;flex-direction:column;align-items:center;gap:0;width:100%}
+.nav-mobile-menu li{width:100%;text-align:center;border-bottom:1px solid var(--border)}
+.nav-mobile-menu a{display:block;padding:22px;color:var(--text);text-decoration:none;font-family:'Syne',sans-serif;font-size:18px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-mobile-menu a:hover{color:var(--cyan)}
+.nav-mobile-premium{
+  margin-top:32px;
+  background:linear-gradient(135deg,#7c3aed,#ff0090,#ffd700);
+  background-size:200% 200%;animation:gradShift 3s ease infinite;
+  color:#fff;padding:14px 40px;border-radius:8px;font-size:14px;
+  letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+  border:none;font-family:'Syne',sans-serif;font-weight:700;
+  box-shadow:0 0 24px rgba(124,58,237,0.4);
+}
 @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 /* ── HERO ── */
@@ -463,12 +489,34 @@ footer p{color:var(--muted);font-size:13px}
 /* Horizontal rule in premium form */
 .prem-divider{width:100%;height:1px;background:rgba(255,215,0,0.1);margin:8px 0}
 
+/* Phone input */
+.phone-input-wrap{display:flex;gap:0;border:1px solid rgba(255,215,0,0.2);border-radius:10px;overflow:hidden;background:rgba(255,215,0,0.04);transition:border-color .25s,box-shadow .25s}
+.phone-input-wrap:focus-within{border-color:rgba(255,215,0,0.5);box-shadow:0 0 20px rgba(255,215,0,0.08)}
+.phone-code-select{
+  background:rgba(255,215,0,0.08)!important;border:none!important;border-right:1px solid rgba(255,215,0,0.2)!important;border-radius:0!important;
+  color:var(--gold)!important;padding:14px 26px 14px 10px!important;font-family:'DM Sans',sans-serif!important;font-size:13px!important;
+  outline:none!important;cursor:pointer;min-width:108px;flex-shrink:0;width:auto!important;box-shadow:none!important;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,215,0,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 8px center!important;
+}
+.phone-code-select option{background:#0b0918;color:var(--text)}
+.phone-input-wrap input[type="tel"]{
+  background:transparent!important;border:none!important;border-radius:0!important;box-shadow:none!important;
+  color:var(--text)!important;padding:14px 18px!important;font-family:'DM Sans',sans-serif!important;font-size:14px!important;
+  outline:none!important;flex:1!important;min-width:0!important;width:auto!important;
+}
+.phone-input-wrap input[type="tel"]::placeholder{color:rgba(255,255,255,0.2)!important}
+
 /* ── HONEYPOT ── */
 .hp-field{position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;tabindex:-1}
 
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
-  nav{padding:16px 20px}
+  nav{padding:14px 20px}
+  nav ul{display:none}
+  .nav-premium{display:none}
+  .hamburger{display:flex}
   .hero{padding:70px 20px 60px}
   .section{padding:60px 20px}
   .exp-cols,.about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
@@ -480,6 +528,15 @@ footer p{color:var(--muted);font-size:13px}
   .prem-form-wrap{padding:40px 20px 60px}
   .prem-hero{padding:50px 20px 40px}
   .prem-row{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr;gap:0}
+  .portfolio-grid{grid-template-columns:1fr}
+  .hero h1{font-size:clamp(28px,8vw,42px)}
+  .cta-row{flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-ghost{text-align:center}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .prem-nav .prem-badge{display:none}
+  .collab-cards .collab-card{border-right:none;border-bottom:1px solid var(--border)}
+  .collab-cards .collab-card:last-child{border-bottom:none}
 }
 </style>
 </head>
@@ -536,7 +593,83 @@ footer p{color:var(--muted);font-size:13px}
           <div class="prem-row">
             <div class="prem-group">
               <label>Telefon (opsiyonel)</label>
-              <input type="tel" id="p-phone" placeholder="+90 5xx xxx xx xx">
+              <div class="phone-input-wrap">
+                <select id="p-phone-code" class="phone-code-select">
+                  <option value="+90" selected>🇹🇷 +90</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+39">🇮🇹 +39</option>
+                  <option value="+34">🇪🇸 +34</option>
+                  <option value="+31">🇳🇱 +31</option>
+                  <option value="+32">🇧🇪 +32</option>
+                  <option value="+41">🇨🇭 +41</option>
+                  <option value="+43">🇦🇹 +43</option>
+                  <option value="+46">🇸🇪 +46</option>
+                  <option value="+47">🇳🇴 +47</option>
+                  <option value="+45">🇩🇰 +45</option>
+                  <option value="+358">🇫🇮 +358</option>
+                  <option value="+48">🇵🇱 +48</option>
+                  <option value="+7">🇷🇺 +7</option>
+                  <option value="+380">🇺🇦 +380</option>
+                  <option value="+30">🇬🇷 +30</option>
+                  <option value="+40">🇷🇴 +40</option>
+                  <option value="+36">🇭🇺 +36</option>
+                  <option value="+420">🇨🇿 +420</option>
+                  <option value="+421">🇸🇰 +421</option>
+                  <option value="+385">🇭🇷 +385</option>
+                  <option value="+381">🇷🇸 +381</option>
+                  <option value="+359">🇧🇬 +359</option>
+                  <option value="+370">🇱🇹 +370</option>
+                  <option value="+371">🇱🇻 +371</option>
+                  <option value="+372">🇪🇪 +372</option>
+                  <option value="+90392">🇨🇾 +90392</option>
+                  <option value="+994">🇦🇿 +994</option>
+                  <option value="+374">🇦🇲 +374</option>
+                  <option value="+995">🇬🇪 +995</option>
+                  <option value="+98">🇮🇷 +98</option>
+                  <option value="+964">🇮🇶 +964</option>
+                  <option value="+966">🇸🇦 +966</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+974">🇶🇦 +974</option>
+                  <option value="+965">🇰🇼 +965</option>
+                  <option value="+968">🇴🇲 +968</option>
+                  <option value="+973">🇧🇭 +973</option>
+                  <option value="+972">🇮🇱 +972</option>
+                  <option value="+20">🇪🇬 +20</option>
+                  <option value="+212">🇲🇦 +212</option>
+                  <option value="+216">🇹🇳 +216</option>
+                  <option value="+213">🇩🇿 +213</option>
+                  <option value="+218">🇱🇾 +218</option>
+                  <option value="+234">🇳🇬 +234</option>
+                  <option value="+27">🇿🇦 +27</option>
+                  <option value="+254">🇰🇪 +254</option>
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+92">🇵🇰 +92</option>
+                  <option value="+880">🇧🇩 +880</option>
+                  <option value="+94">🇱🇰 +94</option>
+                  <option value="+86">🇨🇳 +86</option>
+                  <option value="+81">🇯🇵 +81</option>
+                  <option value="+82">🇰🇷 +82</option>
+                  <option value="+62">🇮🇩 +62</option>
+                  <option value="+60">🇲🇾 +60</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+66">🇹🇭 +66</option>
+                  <option value="+84">🇻🇳 +84</option>
+                  <option value="+63">🇵🇭 +63</option>
+                  <option value="+55">🇧🇷 +55</option>
+                  <option value="+52">🇲🇽 +52</option>
+                  <option value="+54">🇦🇷 +54</option>
+                  <option value="+56">🇨🇱 +56</option>
+                  <option value="+57">🇨🇴 +57</option>
+                  <option value="+51">🇵🇪 +51</option>
+                  <option value="+58">🇻🇪 +58</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+64">🇳🇿 +64</option>
+                </select>
+                <input type="tel" id="p-phone" placeholder="5xx xxx xx xx" inputmode="numeric" pattern="[0-9\s\-]*">
+              </div>
             </div>
             <div class="prem-group">
               <label>Şirket / Marka Adı</label>
@@ -672,7 +805,22 @@ footer p{color:var(--muted);font-size:13px}
     <li><a href="#iletisim">İletişim</a></li>
   </ul>
   <button class="nav-premium" onclick="openPremium()">✦ Premium</button>
+  <button class="hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="nav-mobile-menu" id="mobile-menu">
+  <ul>
+    <li><a href="#hizmetler" onclick="closeMobileMenu()">Hizmetler</a></li>
+    <li><a href="#surec" onclick="closeMobileMenu()">Süreç</a></li>
+    <li><a href="#portfolyo" onclick="closeMobileMenu()">Portföy</a></li>
+    <li><a href="#hakkimda" onclick="closeMobileMenu()">Hakkımda</a></li>
+    <li><a href="#iletisim" onclick="closeMobileMenu()">İletişim</a></li>
+  </ul>
+  <button class="nav-mobile-premium" onclick="closeMobileMenu();openPremium()">✦ Premium</button>
+</div>
 
 <section class="hero">
   <div class="hero-glow"></div>
@@ -826,6 +974,35 @@ footer p{color:var(--muted);font-size:13px}
 </footer>
 
 <script>
+/* ── MOBILE MENU ── */
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.getElementById('hamburger-btn');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.getElementById('hamburger-btn');
+  menu.classList.remove('open');
+  btn.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── PHONE NUMBER ONLY INPUT ── */
+document.addEventListener('DOMContentLoaded', function() {
+  const phoneInput = document.getElementById('p-phone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9\s\-]/g, '');
+    });
+    phoneInput.addEventListener('keypress', function(e) {
+      if (!/[0-9\s\-]/.test(e.key)) e.preventDefault();
+    });
+  }
+});
+
 /* ── NORMAL FORM ── */
 async function submitForm() {
   const hp = document.getElementById('f-hp').value;
@@ -896,7 +1073,9 @@ async function submitPremium() {
   if (hp) return; // bot yakalandı
   const name    = document.getElementById('p-name').value.trim();
   const email   = document.getElementById('p-email').value.trim();
-  const phone   = document.getElementById('p-phone').value.trim();
+  const phoneCode = document.getElementById('p-phone-code').value;
+  const phoneNum  = document.getElementById('p-phone').value.trim();
+  const phone = phoneNum ? (phoneCode + ' ' + phoneNum) : '';
   const company = document.getElementById('p-company').value.trim();
   const vision  = document.getElementById('p-vision').value.trim();
   const audience= document.getElementById('p-audience').value.trim();
