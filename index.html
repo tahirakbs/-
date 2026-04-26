@@ -1021,8 +1021,18 @@ async function submitForm() {
     if (res.ok) {
       document.getElementById('contact-form').style.display = 'none';
       document.getElementById('success-box').classList.add('visible');
-    } else { btn.disabled=false; btn.textContent='Fikri Gönder →'; alert('Bir hata oluştu.'); }
-  } catch(e) { btn.disabled=false; btn.textContent='Fikri Gönder →'; alert('Bağlantı hatası.'); }
+    } else {
+      btn.disabled=false; btn.textContent='Fikri Gönder →';
+      const subject = encodeURIComponent(`Proje Fikri — ${name}`);
+      const body = encodeURIComponent(`Ad: ${name}\nE-posta: ${email}\n\nMesaj:\n${message}`);
+      window.location.href = `mailto:tahirakbs@gmail.com?subject=${subject}&body=${body}`;
+    }
+  } catch(e) {
+    btn.disabled=false; btn.textContent='Fikri Gönder →';
+    const subject = encodeURIComponent(`Proje Fikri — ${name}`);
+    const body = encodeURIComponent(`Ad: ${name}\nE-posta: ${email}\n\nMesaj:\n${message}`);
+    window.location.href = `mailto:tahirakbs@gmail.com?subject=${subject}&body=${body}`;
+  }
 }
 
 /* ── PREMIUM OVERLAY ── */
@@ -1159,12 +1169,18 @@ Bu talep premium danışma formundan gönderilmiştir.
       document.getElementById('prem-form-inner').style.display = 'none';
       document.getElementById('prem-success-box').classList.add('visible');
     } else {
+      // Formspree hata verirse fallback: mailto ile aç
       btn.disabled=false; btn.textContent='👑 Premium Teklif Talep Et';
-      alert('Bir hata oluştu, lütfen tekrar dene.');
+      const subject = encodeURIComponent(`👑 Premium Talep — ${name} | ${company || 'Bireysel'}`);
+      const body = encodeURIComponent(message);
+      window.location.href = `mailto:tahirakbs@gmail.com?subject=${subject}&body=${body}`;
     }
   } catch(e) {
+    // Bağlantı hatası: fallback mailto
     btn.disabled=false; btn.textContent='👑 Premium Teklif Talep Et';
-    alert('Bağlantı hatası.');
+    const subject = encodeURIComponent(`👑 Premium Talep — ${name} | ${company || 'Bireysel'}`);
+    const body = encodeURIComponent(message);
+    window.location.href = `mailto:tahirakbs@gmail.com?subject=${subject}&body=${body}`;
   }
 }
 </script>
